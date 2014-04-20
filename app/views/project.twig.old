@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .project-page {text-align: center}
+    </style>
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Sales', 'Expenses'],
+                {% for v in graph %}
+                ['{{ v.year }}',  {{ v.value }},  801],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Company Performance'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <!--<ul class="nav nav-pills pull-right">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>-->
+            <a href=" {{ url('homepage') }} "><h2 class="text-muted">Drupal Projects</h2></a>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-10">
+                <h1>{{ project.title }}</h1>
+            </div>
+            <div class="col-md-2">
+                {{ project.type }}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Description</h2>
+                <div class="project-page">
+                    <a href=" {{ project.url }} " class="btn btn-info">Got to the project page</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Downloads & Installs</h2>
+                <table class="table table-striped">
+                    <tr><td>Downloads</td><td> {{ project.downloads }} </td></tr>
+                    <tr><td>Installs</td><td> {{ project.installs }} </td></tr>
+                </table>
+            </div>
+
+            <div class="col-md-8">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Bugs & Issues</h2>
+                <table class="table table-striped">
+                    <tr><td>Opened issues</td><td> {{ project.opened_issues }} </td></tr>
+                    <tr><td>Total issues</td><td> {{ project.total_issues }} </td></tr>
+                    <tr><td>Opened bugs</td><td> {{ project.opened_bugs }} </td></tr>
+                    <tr><td>Total bugs</td><td> {{ project.total_bugs }} </td></tr>
+                </table>
+            </div>
+
+            <div class="col-md-8">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Versions</h2>
+                <table class="table">
+                    {% for release in releases %}
+                        {% if release.extra == 'dev' %}
+                            <tr class="danger"><td>{{ release.version }}</td></tr>
+                        {% elseif release.extra != '' %}
+                            <tr class="warning"><td>{{ release.version }}</td></tr>
+                        {% else %}
+                            <tr><td>{{ release.version }}</td></tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <h2>Maintainers</h2>
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <p>&copy; Julien Dubreuil 2013</p>
+        </div>
+
+        <div id="chart_div"></div>
+    </div> <!-- /container -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+

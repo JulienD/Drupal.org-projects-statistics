@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projects xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <project>
+  <title>Commerce Kickstart</title>
+  <short_name>commerce_kickstart</short_name>
+  <link>http://drupal.org/project/commerce_kickstart</link>
+  <dc:creator>rszrama</dc:creator>
+  <terms>
+   <term><name>Projects</name><value>Distributions</value></term>
+   <term><name>Development status</name><value>Under active development</value></term>
+   <term><name>Maintenance status</name><value>Actively maintained</value></term>
+  </terms>
+  <project_status>published</project_status>
+  <api_versions>
+   <api_version>7.x</api_version>
+  </api_versions>
+ </project>
+ <project>
+  <title>MobileGallery</title>
+  <short_name>1079078</short_name>
+  <link>http://drupal.org/sandbox/stevector/1079078</link>
+  <dc:creator>stevector</dc:creator>
+  <terms>
+   <term><name>Projects</name><value>Modules</value></term>
+   <term><name>Projects</name><value>Views</value></term>
+   <term><name>Projects</name><value>Mobile</value></term>
+   <term><name>Development status</name><value>Under active development</value></term>
+   <term><name>Maintenance status</name><value>Actively maintained</value></term>
+  </terms>
+  <project_status>published</project_status>
+ </project>
+ <project>
+  <title>Commerce PayPal</title>
+  <short_name>commerce_paypal</short_name>
+  <link>http://drupal.org/project/commerce_paypal</link>
+  <dc:creator>rszrama</dc:creator>
+  <terms>
+   <term><name>Projects</name><value>Modules</value></term>
+   <term><name>Development status</name><value>Under active development</value></term>
+   <term><name>Maintenance status</name><value>Actively maintained</value></term>
+  </terms>
+  <project_status>published</project_status>
+  <api_versions>
+   <api_version>7.x</api_version>
+  </api_versions>
+ </project>
+</projects>

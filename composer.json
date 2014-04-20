@@ -1,0 +1,27 @@
+{
+    "require": {
+        "doctrine/dbal": "2.2.*",
+        "franmomu/silex-pagerfanta-provider": "1.0.*@dev",
+        "pagerfanta/pagerfanta": "dev-master",
+        "silex/silex": "~1.1",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/config": "~2.3",
+        "symfony/form": "~2.3",
+        "symfony/security": "~2.3",
+        "symfony/translation": "~2.3",
+        "symfony/twig-bridge": "~2.3",
+        "symfony/validator": "~2.3",
+        "swiftmailer/swiftmailer": "~5.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs", "url": "http://github.com/saadtazi/SaadTaziGChartBundle"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "DrupalProjectsStatistics": "src/" }
+    }
+}
+
+
+

@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+{% set active = 'projects' %}
+
+{% block content %}
+    <div class="row">
+        {% include 'sidebar.html.twig' %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Projects</h1>
+            <div class="row">
+                <table id="project-list-table" class="table table-striped">
+                    <thead>
+                        <th>project_title</th>
+                        <th>Downloads</th>
+                        <th>Installs</th>
+                        <th>Opened issues</th>
+                        <th>Total issues</th>
+                        <th>Opened bugs</th>
+                        <th>Total bugs</th>
+                        <th>Last commit</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                    {% for project in projects %}
+                        <tr id="'project-{{ project.name }}" class="active">
+                            <td><a href="{{ project.url }}">{{ project.title }}</a></td>
+                            <td class="number">{{ project.downloads }}</td>
+                            <td class="number">{{ project.installs }}</td>
+                            <td class="number">{{ project.openedIssues }}</td>
+                            <td class="number">{{ project.totalIssues }}</td>
+                            <td class="number">{{ project.openedBugs }}</td>
+                            <td class="number">{{ project.totalBugs }}</td>
+                            <td>{{ project.lastCommit }}</td>
+                            <td><a href="{{ path('project', {'project': project.id}) }}" class="btn btn-info">Show more</a></td>
+                            <td class="number"></td>
+                            <td class="number"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% include "pagination.html.twig" %}
+        </div>
+    </div>
+{% endblock %}

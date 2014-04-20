@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Drupal Projects Statistics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+    <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="{{ app.request.basepath }}/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+    <link href="{{ app.request.basepath }}/css/main.css" rel="stylesheet" type='text/css'>
+    <link href="{{ app.request.basepath }}/css/style.css" rel="stylesheet" type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]> -->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+</head>
+<body>
+    {% set active = active|default(null) %}
+    <div id="main" role="main">
+        <!-- Static navbar -->
+        {% if is_granted('ROLE_USER') %}
+            <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-collapse collapse">
+
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">Project name</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Admin <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Nav header</li>
+                                        <li><a href="#">Separated link</a></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                            {% if is_granted('ROLE_USER') %}
+                                <li><a href="{{ path('logout') }}"><i class="fa fa-user"></i> {{ 'Logout'|trans }}</a></li>
+                            {% else %}
+                                <li {% if 'login' == active %}class="active"{% endif %}><a href="{{ path('login') }}"><i class="fa fa-user"></i> {{ 'Login'|trans }}</a></li>
+                            {% endif %}
+                        </ul>
+                        <form class="navbar-form navbar-right" role="search" action="/search" method="get">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." name="q">
+                            </div>
+                        </form>
+                    </div>
+                        </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="content container-fluid">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <script src="{{ app.request.basepath }}/js/jquery.js"></script>
+    <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/main.js"></script>
+
+</body>
+</html>

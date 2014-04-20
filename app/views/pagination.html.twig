@@ -1,0 +1,55 @@
+{% if numPages > 1 %}
+    <div>
+        <ul class="pagination">
+            <!-- Previous page. -->
+            {% if currentPage != 1 %}
+                <li><a href="{{ here }}?page=1">{{ 'First'|trans }}</a></li>
+                <li><a href="{{ here }}?page={{ currentPage - 1 }}">{{ 'Prev'|trans }}</a></li>
+            {% else %}
+                <li><span class="disabled">{{ 'First'|trans }}</span></li>
+                <li><span class="disabled">{{ 'Prev'|trans }}</span></li>
+            {% endif %}
+
+            {% if numPages < 10  %}
+                {% for i in 1..numPages %}
+                    <li {% if i == currentPage %} class="active" {% endif %}>
+                        <a href="{{ here }}?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <!-- If the current page is in the first 4 pages. -->
+                {% if (currentPage - 5) < 0 %}
+                    {% for i in ((5 - currentPage) - 4)..((5 - currentPage) + 4) %}
+                        <li {% if i == 0 %} class="active" {% endif %}>
+                            <a href="{{ here }}?page={{ currentPage + i }}">{{ currentPage + i }}</a>
+                        </li>
+                    {% endfor %}
+                <!-- If the current page is in the last 4 pages. -->
+                {% elseif (numPages - currentPage) < 5 %}
+                    {% for i in (((numPages - 4) - currentPage) - 4)..(((numPages - 4) - currentPage) + 4) %}
+                        <li {% if i == 0 %} class="active" {% endif %}>
+                            <a href="{{ here }}?page={{ currentPage + i }}">{{ currentPage + i }}</a>
+                        </li>
+                    {% endfor %}
+                <!-- When the current page is in the middle of the pages. -->
+                {% else  %}
+                    {% for i in -4..3 %}
+                        <li {% if i == 0 %} class="active" {% endif %}>
+                            <a href="{{ here }}?page={{ currentPage + i }}">{{ currentPage + i }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+
+            {% endif %}
+
+            <!-- Next page. -->
+            {% if currentPage != numPages %}
+               <li><a href="{{ here }}?page={{ currentPage + 1 }}">{{ 'Next'|trans }}</a></li>
+               <li><a href="{{ here }}?page={{ numPages }}">{{ 'Last'|trans }}</a></li>
+            {% else %}
+               <li><span class="disabled">{{ 'Next'|trans }}</span></li>
+               <li><span class="disabled">{{ 'Last'|trans }}</span></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
