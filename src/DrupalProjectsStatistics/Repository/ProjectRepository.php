@@ -26,31 +26,31 @@ Class ProjectRepository implements RepositoryInterface
   /**
    * Saves the project to the database.
    *
-   * @param \DrupalProjectsStatistics\Entity\Project $flag
+   * @param \DrupalProjectsStatistics\Entity\Project $flag_type
    */
-  public function save($flag)
+  public function save($flag_type)
   {
     $projectData = array(
-      'name'         => $flag->getName(),
-      'title'        => $flag->getTitle(),
-      'url'          => $flag->getUrl(),
-      'gitUrl'       => $flag->getGitUrl(),
-      'lastCommit'   => $flag->getLastCommit(),
-      'type'         => $flag->getType(),
-      'created'      => $flag->getCreated(),
-      'updated'      => $flag->getUpdated(),
+      'name'         => $flag_type->getName(),
+      'title'        => $flag_type->getTitle(),
+      'url'          => $flag_type->getUrl(),
+      'gitUrl'       => $flag_type->getGitUrl(),
+      'lastCommit'   => $flag_type->getLastCommit(),
+      'type'         => $flag_type->getType(),
+      'created'      => $flag_type->getCreated(),
+      'updated'      => $flag_type->getUpdated(),
     );
 
-    if ($flag->getId()) {
+    if ($flag_type->getId()) {
       // Updates the project.
-      $this->db->update('projects', $projectData, array('id' => $flag->getId()));
+      $this->db->update('projects', $projectData, array('id' => $flag_type->getId()));
     }
     else {
       // Saves the project.
       $this->db->insert('projects', $projectData);
       // Get the id of the newly created artist and set it on the entity.
       $id = $this->db->lastInsertId();
-      $flag->setId($id);
+      $flag_type->setId($id);
     }
   }
 

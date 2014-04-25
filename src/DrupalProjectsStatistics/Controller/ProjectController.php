@@ -40,15 +40,16 @@ class ProjectController
    * @return mixed
    */
   public function drupalCommerceIndexAction(Request $request, Application $app) {
+
     // Perform pagination logic.
     $limit = 20;
-    $total = $app['repository.flag']->getFlagCount(array('flag_type' => 'drupalcommerce', 'entity_type' => 'project'));
+    $total = $app['repository.flag']->getFlagCountByType('drupalcommerce', array('entity_type' => 'project'));
     $numPages = ceil($total / $limit);
     $currentPage = $request->query->get('page', 1);
     $offset = ($currentPage - 1) * $limit;
 
     // Gets all projects.
-    $flags = $app['repository.flag']->getFlags(array('flag_type' => 'drupalcommerce', 'entity_type' => 'project'), $limit, $offset);
+    $flags = $app['repository.flag']->getFlagsByType('drupalcommerce', array('entity_type' => 'project'), $limit, $offset);
 
     if (!empty($flags)) {
       $project_ids =array();
@@ -84,14 +85,14 @@ class ProjectController
   public function commerceGuysIndexAction(Request $request, Application $app) {
     // Perform pagination logic.
     $limit = 20;
-    $total = $app['repository.projectCommerceGuys']->getCount();
+    $total = $app['repository.flag']->getFlagCountByType('commerceguys', array('entity_type' => 'project'));
     $numPages = ceil($total / $limit);
     $currentPage = $request->query->get('page', 1);
     $offset = ($currentPage - 1) * $limit;
     $reports = array();
 
     // Gets all projects.
-    $flags = $app['repository.flag']->getFlags(array('flag_type' => 'commerceguys', 'entity_type' => 'project'), $limit, $offset);
+    $flags = $app['repository.flag']->getFlagsByType('commerceguys', array('entity_type' => 'project'), $limit, $offset);
 
     if (!empty($flags)) {
       $project_ids =array();
@@ -186,15 +187,17 @@ class ProjectController
 
     $releases = $app['repository.release']->findAll(array(), array('project_id' => $project->getId()));
 
+    //$flags = $app['repository.flag']->getProjectFlag($project->getId());
+
     $flags = array(
       array(
-        'flagTitle' => 'CG',
-        'flagType' => 'commerceguys',
+        'flagTitle' => 'Commerce Guys',
+        'flagTypeId' => 1,
         'flagStatus' => ''
       ),
       array(
-        'flagTitle' => 'DC',
-        'flagType' => 'drupalcommerce',
+        'flagTitle' => 'Drupal Commerce',
+        'flagTypeId' => 2,
         'flagStatus' => ''
       ),
     );
@@ -286,9 +289,9 @@ class ProjectController
   public function flagAction(Request $request, Application $app) {
     $project = $request->attributes->get('project');
 
-    $type = $request->attributes->get('type');
+    $flag_type = $request->attributes->get('flagType');
 
-    if (!$project || !$type) {
+    if (!$project || !$flag_type) {
       $app->abort(404, 'The requested artist was not found.');
     }
 
@@ -299,8 +302,7 @@ class ProjectController
       return;
     }
 
-    $app['repository.flag']->flag($project, $type);
-    //$app['repository.flag']->flag($project, $type);
+    $app['repository.flag']->flagging($project, $flag_type);
 
     return '';
   }
